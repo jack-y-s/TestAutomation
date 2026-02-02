@@ -6,206 +6,385 @@
   <style>
     body { font-family: Arial, sans-serif; background: #f8f9fa; }
     h1 { text-align: center; }
+    .summary { display: flex; justify-content: center; align-items: center; margin: 2rem 0; }
+    .pie-chart { width: 120px; height: 120px; margin-right: 2rem; }
+    .legend { display: flex; flex-direction: column; }
+    .legend span { margin-bottom: 0.5rem; }
+    .legend .pass { color: #218838; }
+    .legend .fail { color: #c82333; }
     table { border-collapse: collapse; margin: 2rem auto; width: 90%; background: #fff; }
     th, td { border: 1px solid #ccc; padding: 0.5rem 1rem; text-align: center; }
     th { background: #007bff; color: #fff; }
     tr.pass { background: #d4edda; }
     tr.fail { background: #f8d7da; }
-    img.thumb { max-width: 120px; max-height: 80px; border: 1px solid #888; cursor: pointer; transition: box-shadow 0.2s; }
-    .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); align-items: center; justify-content: center; }
-    .modal img { max-width: 90vw; max-height: 90vh; border: 4px solid #fff; box-shadow: 0 0 20px #000; }
-    .modal.active { display: flex; }
+    .expand-btn { cursor: pointer; background: #007bff; color: #fff; border: none; border-radius: 4px; padding: 0.2rem 0.7rem; font-size: 1rem; }
+    .details-row { display: none; background: #f1f1f1; }
+    .details-cell { text-align: left; padding: 1rem 2rem; }
+    .details-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 2rem; }
+    .details-list li { margin-bottom: 0; display: contents; }
+    .details-list label { font-weight: bold; text-align: right; padding-right: 0.5rem; }
+    .details-list span, .details-list a { text-align: left; }
     .wrap { word-break: break-all; max-width: 180px; white-space: pre-wrap; }
+    img.thumb { max-width: 120px; max-height: 80px; border: 1px solid #888; }
   </style>
 </head>
 <body>
   <h1>Test Automation Results</h1>
+  <div class="summary">
+    <svg class="pie-chart" viewBox="0 0 32 32">
+      <circle r="16" cx="16" cy="16" fill="#f8d7da" />
+      <path d="M16,16 L16,0 A16,16 0 1 1 0.6107897092348953,20.37860784115333 Z" fill="#218838" />
+    </svg>
+    <div class="legend">
+      <span class="pass">PASS: 12 (70.6%)</span>
+      <span class="fail">FAIL: 5 (29.4%)</span>
+      <span>Total: 17</span>
+    </div>
+  </div>
   <table>
     <thead>
       <tr>
         <th>Test Case</th>
-        <th>Timestamp</th>
-        <th>Username</th>
-        <th>Password</th>
         <th>Expected</th>
         <th>Actual</th>
-        <th>Status</th>
-        <th>Details</th>
-        <th>Time Taken (s)</th>
-        <th>Screenshot</th>
+        <th>Expand</th>
       </tr>
     </thead>
     <tbody>
       
         <tr class="pass">
           <td>1</td>
-          <td>2026-02-02T06:50:20.875Z</td>
-          <td class="wrap">automation</td>
-          <td class="wrap">testautomation123</td>
           <td>Success</td>
           <td>Success</td>
-          <td>PASS</td>
-          <td>Login succeeded</td>
-          <td>0.70</td>
-          <td><img src="screenshots/testcase-1-pass.png" alt="screenshot" class="thumb" onclick="showModal('screenshots/testcase-1-pass.png')"></td>
+          <td><button class="expand-btn" onclick="toggleDetails(0)">&#x25BC;</button></td>
+        </tr>
+        <tr class="details-row" id="details-0">
+          <td colspan="4" class="details-cell">
+            <ul class="details-list">
+              <li><label>Timestamp:</label> <span>2026-02-02T08:18:17.770Z</span></li>
+              <li><label>Username:</label> <span class="wrap">automation</span></li>
+              <li><label>Password:</label> <span class="wrap">testautomation123</span></li>
+              <li><label>Status:</label> <span>PASS</span></li>
+              <li><label>Details:</label> <span>Login succeeded</span></li>
+              <li><label>Time Taken (s):</label> <span>0.70</span></li>
+              <li><label>Screenshot:</label> <a href="screenshots/testcase-1-pass.png" target="_blank"><img src="screenshots/testcase-1-pass.png" alt="screenshot" class="thumb"></a></li>
+            </ul>
+          </td>
         </tr>
         <tr class="pass">
           <td>2</td>
-          <td>2026-02-02T06:50:21.601Z</td>
-          <td class="wrap">admin</td>
-          <td class="wrap">wrongpass</td>
           <td>Failure</td>
           <td>Failure</td>
-          <td>PASS</td>
-          <td>Login failed as expected</td>
-          <td>0.67</td>
-          <td><img src="screenshots/testcase-2-pass.png" alt="screenshot" class="thumb" onclick="showModal('screenshots/testcase-2-pass.png')"></td>
+          <td><button class="expand-btn" onclick="toggleDetails(1)">&#x25BC;</button></td>
+        </tr>
+        <tr class="details-row" id="details-1">
+          <td colspan="4" class="details-cell">
+            <ul class="details-list">
+              <li><label>Timestamp:</label> <span>2026-02-02T08:18:18.491Z</span></li>
+              <li><label>Username:</label> <span class="wrap">admin</span></li>
+              <li><label>Password:</label> <span class="wrap">wrongpass</span></li>
+              <li><label>Status:</label> <span>PASS</span></li>
+              <li><label>Details:</label> <span>Login failed as expected</span></li>
+              <li><label>Time Taken (s):</label> <span>0.65</span></li>
+              <li><label>Screenshot:</label> <a href="screenshots/testcase-2-pass.png" target="_blank"><img src="screenshots/testcase-2-pass.png" alt="screenshot" class="thumb"></a></li>
+            </ul>
+          </td>
         </tr>
         <tr class="pass">
           <td>3</td>
-          <td>2026-02-02T06:50:22.368Z</td>
-          <td class="wrap">user</td>
-          <td class="wrap">password123</td>
           <td>Failure</td>
           <td>Failure</td>
-          <td>PASS</td>
-          <td>Login failed as expected</td>
-          <td>0.70</td>
-          <td><img src="screenshots/testcase-3-pass.png" alt="screenshot" class="thumb" onclick="showModal('screenshots/testcase-3-pass.png')"></td>
+          <td><button class="expand-btn" onclick="toggleDetails(2)">&#x25BC;</button></td>
+        </tr>
+        <tr class="details-row" id="details-2">
+          <td colspan="4" class="details-cell">
+            <ul class="details-list">
+              <li><label>Timestamp:</label> <span>2026-02-02T08:18:19.226Z</span></li>
+              <li><label>Username:</label> <span class="wrap">user</span></li>
+              <li><label>Password:</label> <span class="wrap">password123</span></li>
+              <li><label>Status:</label> <span>PASS</span></li>
+              <li><label>Details:</label> <span>Login failed as expected</span></li>
+              <li><label>Time Taken (s):</label> <span>0.66</span></li>
+              <li><label>Screenshot:</label> <a href="screenshots/testcase-3-pass.png" target="_blank"><img src="screenshots/testcase-3-pass.png" alt="screenshot" class="thumb"></a></li>
+            </ul>
+          </td>
         </tr>
         <tr class="fail">
           <td>4</td>
-          <td>2026-02-02T06:50:23.102Z</td>
-          <td class="wrap"></td>
-          <td class="wrap"></td>
           <td>Failure</td>
           <td>No Input</td>
-          <td>FAIL</td>
-          <td>Username or password not entered</td>
-          <td>0.66</td>
-          <td><img src="screenshots/testcase-4-fail.png" alt="screenshot" class="thumb" onclick="showModal('screenshots/testcase-4-fail.png')"></td>
+          <td><button class="expand-btn" onclick="toggleDetails(3)">&#x25BC;</button></td>
+        </tr>
+        <tr class="details-row" id="details-3">
+          <td colspan="4" class="details-cell">
+            <ul class="details-list">
+              <li><label>Timestamp:</label> <span>2026-02-02T08:18:19.961Z</span></li>
+              <li><label>Username:</label> <span class="wrap"></span></li>
+              <li><label>Password:</label> <span class="wrap"></span></li>
+              <li><label>Status:</label> <span>FAIL</span></li>
+              <li><label>Details:</label> <span>Username or password not entered</span></li>
+              <li><label>Time Taken (s):</label> <span>0.67</span></li>
+              <li><label>Screenshot:</label> <a href="screenshots/testcase-4-fail.png" target="_blank"><img src="screenshots/testcase-4-fail.png" alt="screenshot" class="thumb"></a></li>
+            </ul>
+          </td>
         </tr>
         <tr class="fail">
           <td>5</td>
-          <td>2026-02-02T06:50:23.837Z</td>
-          <td class="wrap">automation</td>
-          <td class="wrap"></td>
           <td>Failure</td>
           <td>No Input</td>
-          <td>FAIL</td>
-          <td>Username or password not entered</td>
-          <td>0.66</td>
-          <td><img src="screenshots/testcase-5-fail.png" alt="screenshot" class="thumb" onclick="showModal('screenshots/testcase-5-fail.png')"></td>
+          <td><button class="expand-btn" onclick="toggleDetails(4)">&#x25BC;</button></td>
+        </tr>
+        <tr class="details-row" id="details-4">
+          <td colspan="4" class="details-cell">
+            <ul class="details-list">
+              <li><label>Timestamp:</label> <span>2026-02-02T08:18:20.678Z</span></li>
+              <li><label>Username:</label> <span class="wrap">automation</span></li>
+              <li><label>Password:</label> <span class="wrap"></span></li>
+              <li><label>Status:</label> <span>FAIL</span></li>
+              <li><label>Details:</label> <span>Username or password not entered</span></li>
+              <li><label>Time Taken (s):</label> <span>0.66</span></li>
+              <li><label>Screenshot:</label> <a href="screenshots/testcase-5-fail.png" target="_blank"><img src="screenshots/testcase-5-fail.png" alt="screenshot" class="thumb"></a></li>
+            </ul>
+          </td>
         </tr>
         <tr class="fail">
           <td>6</td>
-          <td>2026-02-02T06:50:24.554Z</td>
-          <td class="wrap"></td>
-          <td class="wrap">testautomation123</td>
           <td>Failure</td>
           <td>No Input</td>
-          <td>FAIL</td>
-          <td>Username or password not entered</td>
-          <td>0.65</td>
-          <td><img src="screenshots/testcase-6-fail.png" alt="screenshot" class="thumb" onclick="showModal('screenshots/testcase-6-fail.png')"></td>
+          <td><button class="expand-btn" onclick="toggleDetails(5)">&#x25BC;</button></td>
+        </tr>
+        <tr class="details-row" id="details-5">
+          <td colspan="4" class="details-cell">
+            <ul class="details-list">
+              <li><label>Timestamp:</label> <span>2026-02-02T08:18:21.425Z</span></li>
+              <li><label>Username:</label> <span class="wrap"></span></li>
+              <li><label>Password:</label> <span class="wrap">testautomation123</span></li>
+              <li><label>Status:</label> <span>FAIL</span></li>
+              <li><label>Details:</label> <span>Username or password not entered</span></li>
+              <li><label>Time Taken (s):</label> <span>0.67</span></li>
+              <li><label>Screenshot:</label> <a href="screenshots/testcase-6-fail.png" target="_blank"><img src="screenshots/testcase-6-fail.png" alt="screenshot" class="thumb"></a></li>
+            </ul>
+          </td>
         </tr>
         <tr class="pass">
           <td>7</td>
-          <td>2026-02-02T06:50:25.301Z</td>
-          <td class="wrap">automation&#39; OR &#39;1&#39;=&#39;1</td>
-          <td class="wrap">testautomation123</td>
           <td>Failure</td>
           <td>Failure</td>
-          <td>PASS</td>
-          <td>Login failed as expected</td>
-          <td>0.69</td>
-          <td><img src="screenshots/testcase-7-pass.png" alt="screenshot" class="thumb" onclick="showModal('screenshots/testcase-7-pass.png')"></td>
+          <td><button class="expand-btn" onclick="toggleDetails(6)">&#x25BC;</button></td>
+        </tr>
+        <tr class="details-row" id="details-6">
+          <td colspan="4" class="details-cell">
+            <ul class="details-list">
+              <li><label>Timestamp:</label> <span>2026-02-02T08:18:22.175Z</span></li>
+              <li><label>Username:</label> <span class="wrap">automation&#39; OR &#39;1&#39;=&#39;1</span></li>
+              <li><label>Password:</label> <span class="wrap">testautomation123</span></li>
+              <li><label>Status:</label> <span>PASS</span></li>
+              <li><label>Details:</label> <span>Login failed as expected</span></li>
+              <li><label>Time Taken (s):</label> <span>0.68</span></li>
+              <li><label>Screenshot:</label> <a href="screenshots/testcase-7-pass.png" target="_blank"><img src="screenshots/testcase-7-pass.png" alt="screenshot" class="thumb"></a></li>
+            </ul>
+          </td>
         </tr>
         <tr class="pass">
           <td>8</td>
-          <td>2026-02-02T06:50:26.055Z</td>
-          <td class="wrap">&lt;script&gt;alert(1)&lt;/script&gt;</td>
-          <td class="wrap">testautomation123</td>
           <td>Failure</td>
           <td>Failure</td>
-          <td>PASS</td>
-          <td>Login failed as expected</td>
-          <td>0.68</td>
-          <td><img src="screenshots/testcase-8-pass.png" alt="screenshot" class="thumb" onclick="showModal('screenshots/testcase-8-pass.png')"></td>
+          <td><button class="expand-btn" onclick="toggleDetails(7)">&#x25BC;</button></td>
+        </tr>
+        <tr class="details-row" id="details-7">
+          <td colspan="4" class="details-cell">
+            <ul class="details-list">
+              <li><label>Timestamp:</label> <span>2026-02-02T08:18:22.909Z</span></li>
+              <li><label>Username:</label> <span class="wrap">&lt;script&gt;alert(1)&lt;/script&gt;</span></li>
+              <li><label>Password:</label> <span class="wrap">testautomation123</span></li>
+              <li><label>Status:</label> <span>PASS</span></li>
+              <li><label>Details:</label> <span>Login failed as expected</span></li>
+              <li><label>Time Taken (s):</label> <span>0.67</span></li>
+              <li><label>Screenshot:</label> <a href="screenshots/testcase-8-pass.png" target="_blank"><img src="screenshots/testcase-8-pass.png" alt="screenshot" class="thumb"></a></li>
+            </ul>
+          </td>
         </tr>
         <tr class="pass">
           <td>9</td>
-          <td>2026-02-02T06:50:26.785Z</td>
-          <td class="wrap">automation</td>
-          <td class="wrap">&lt;script&gt;alert(1)&lt;/script&gt;</td>
           <td>Failure</td>
           <td>Failure</td>
-          <td>PASS</td>
-          <td>Login failed as expected</td>
-          <td>0.66</td>
-          <td><img src="screenshots/testcase-9-pass.png" alt="screenshot" class="thumb" onclick="showModal('screenshots/testcase-9-pass.png')"></td>
+          <td><button class="expand-btn" onclick="toggleDetails(8)">&#x25BC;</button></td>
+        </tr>
+        <tr class="details-row" id="details-8">
+          <td colspan="4" class="details-cell">
+            <ul class="details-list">
+              <li><label>Timestamp:</label> <span>2026-02-02T08:18:23.643Z</span></li>
+              <li><label>Username:</label> <span class="wrap">automation</span></li>
+              <li><label>Password:</label> <span class="wrap">&lt;script&gt;alert(1)&lt;/script&gt;</span></li>
+              <li><label>Status:</label> <span>PASS</span></li>
+              <li><label>Details:</label> <span>Login failed as expected</span></li>
+              <li><label>Time Taken (s):</label> <span>0.65</span></li>
+              <li><label>Screenshot:</label> <a href="screenshots/testcase-9-pass.png" target="_blank"><img src="screenshots/testcase-9-pass.png" alt="screenshot" class="thumb"></a></li>
+            </ul>
+          </td>
         </tr>
         <tr class="pass">
           <td>10</td>
-          <td>2026-02-02T06:50:27.535Z</td>
-          <td class="wrap">automation</td>
-          <td class="wrap">testautomation123 </td>
           <td>Failure</td>
           <td>Failure</td>
-          <td>PASS</td>
-          <td>Login failed as expected</td>
-          <td>0.68</td>
-          <td><img src="screenshots/testcase-10-pass.png" alt="screenshot" class="thumb" onclick="showModal('screenshots/testcase-10-pass.png')"></td>
+          <td><button class="expand-btn" onclick="toggleDetails(9)">&#x25BC;</button></td>
+        </tr>
+        <tr class="details-row" id="details-9">
+          <td colspan="4" class="details-cell">
+            <ul class="details-list">
+              <li><label>Timestamp:</label> <span>2026-02-02T08:18:24.408Z</span></li>
+              <li><label>Username:</label> <span class="wrap">automation</span></li>
+              <li><label>Password:</label> <span class="wrap">testautomation123 </span></li>
+              <li><label>Status:</label> <span>PASS</span></li>
+              <li><label>Details:</label> <span>Login failed as expected</span></li>
+              <li><label>Time Taken (s):</label> <span>0.69</span></li>
+              <li><label>Screenshot:</label> <a href="screenshots/testcase-10-pass.png" target="_blank"><img src="screenshots/testcase-10-pass.png" alt="screenshot" class="thumb"></a></li>
+            </ul>
+          </td>
         </tr>
         <tr class="pass">
           <td>11</td>
-          <td>2026-02-02T06:50:28.284Z</td>
-          <td class="wrap"> automation</td>
-          <td class="wrap">testautomation123</td>
           <td>Failure</td>
           <td>Failure</td>
-          <td>PASS</td>
-          <td>Login failed as expected</td>
-          <td>0.69</td>
-          <td><img src="screenshots/testcase-11-pass.png" alt="screenshot" class="thumb" onclick="showModal('screenshots/testcase-11-pass.png')"></td>
+          <td><button class="expand-btn" onclick="toggleDetails(10)">&#x25BC;</button></td>
+        </tr>
+        <tr class="details-row" id="details-10">
+          <td colspan="4" class="details-cell">
+            <ul class="details-list">
+              <li><label>Timestamp:</label> <span>2026-02-02T08:18:25.158Z</span></li>
+              <li><label>Username:</label> <span class="wrap"> automation</span></li>
+              <li><label>Password:</label> <span class="wrap">testautomation123</span></li>
+              <li><label>Status:</label> <span>PASS</span></li>
+              <li><label>Details:</label> <span>Login failed as expected</span></li>
+              <li><label>Time Taken (s):</label> <span>0.68</span></li>
+              <li><label>Screenshot:</label> <a href="screenshots/testcase-11-pass.png" target="_blank"><img src="screenshots/testcase-11-pass.png" alt="screenshot" class="thumb"></a></li>
+            </ul>
+          </td>
         </tr>
         <tr class="pass">
           <td>12</td>
-          <td>2026-02-02T06:50:29.019Z</td>
-          <td class="wrap">automationautomationautomationautomationautomationautomationautomationautomationautomationautomation</td>
-          <td class="wrap">testautomation123</td>
           <td>Failure</td>
           <td>Failure</td>
-          <td>PASS</td>
-          <td>Login failed as expected</td>
-          <td>0.67</td>
-          <td><img src="screenshots/testcase-12-pass.png" alt="screenshot" class="thumb" onclick="showModal('screenshots/testcase-12-pass.png')"></td>
+          <td><button class="expand-btn" onclick="toggleDetails(11)">&#x25BC;</button></td>
+        </tr>
+        <tr class="details-row" id="details-11">
+          <td colspan="4" class="details-cell">
+            <ul class="details-list">
+              <li><label>Timestamp:</label> <span>2026-02-02T08:18:25.909Z</span></li>
+              <li><label>Username:</label> <span class="wrap">automationautomationautomationautomationautomationautomationautomationautomationautomationautomation</span></li>
+              <li><label>Password:</label> <span class="wrap">testautomation123</span></li>
+              <li><label>Status:</label> <span>PASS</span></li>
+              <li><label>Details:</label> <span>Login failed as expected</span></li>
+              <li><label>Time Taken (s):</label> <span>0.68</span></li>
+              <li><label>Screenshot:</label> <a href="screenshots/testcase-12-pass.png" target="_blank"><img src="screenshots/testcase-12-pass.png" alt="screenshot" class="thumb"></a></li>
+            </ul>
+          </td>
         </tr>
         <tr class="pass">
           <td>13</td>
-          <td>2026-02-02T06:50:29.770Z</td>
-          <td class="wrap">automation</td>
-          <td class="wrap">testautomation123testautomation123testautomation123testautomation123testautomation123</td>
           <td>Failure</td>
           <td>Failure</td>
-          <td>PASS</td>
-          <td>Login failed as expected</td>
-          <td>0.68</td>
-          <td><img src="screenshots/testcase-13-pass.png" alt="screenshot" class="thumb" onclick="showModal('screenshots/testcase-13-pass.png')"></td>
+          <td><button class="expand-btn" onclick="toggleDetails(12)">&#x25BC;</button></td>
+        </tr>
+        <tr class="details-row" id="details-12">
+          <td colspan="4" class="details-cell">
+            <ul class="details-list">
+              <li><label>Timestamp:</label> <span>2026-02-02T08:18:26.624Z</span></li>
+              <li><label>Username:</label> <span class="wrap">automation</span></li>
+              <li><label>Password:</label> <span class="wrap">testautomation123testautomation123testautomation123testautomation123testautomation123</span></li>
+              <li><label>Status:</label> <span>PASS</span></li>
+              <li><label>Details:</label> <span>Login failed as expected</span></li>
+              <li><label>Time Taken (s):</label> <span>0.65</span></li>
+              <li><label>Screenshot:</label> <a href="screenshots/testcase-13-pass.png" target="_blank"><img src="screenshots/testcase-13-pass.png" alt="screenshot" class="thumb"></a></li>
+            </ul>
+          </td>
+        </tr>
+        <tr class="pass">
+          <td>14</td>
+          <td>Failure</td>
+          <td>Failure</td>
+          <td><button class="expand-btn" onclick="toggleDetails(13)">&#x25BC;</button></td>
+        </tr>
+        <tr class="details-row" id="details-13">
+          <td colspan="4" class="details-cell">
+            <ul class="details-list">
+              <li><label>Timestamp:</label> <span>2026-02-02T08:18:27.386Z</span></li>
+              <li><label>Username:</label> <span class="wrap">qmFn8m32</span></li>
+              <li><label>Password:</label> <span class="wrap">neen5vSO9Lu5</span></li>
+              <li><label>Status:</label> <span>PASS</span></li>
+              <li><label>Details:</label> <span>Login failed as expected</span></li>
+              <li><label>Time Taken (s):</label> <span>0.68</span></li>
+              <li><label>Screenshot:</label> <a href="screenshots/testcase-14-pass.png" target="_blank"><img src="screenshots/testcase-14-pass.png" alt="screenshot" class="thumb"></a></li>
+            </ul>
+          </td>
+        </tr>
+        <tr class="fail">
+          <td>15</td>
+          <td>Failure</td>
+          <td>No Input</td>
+          <td><button class="expand-btn" onclick="toggleDetails(14)">&#x25BC;</button></td>
+        </tr>
+        <tr class="details-row" id="details-14">
+          <td colspan="4" class="details-cell">
+            <ul class="details-list">
+              <li><label>Timestamp:</label> <span>2026-02-02T08:18:28.126Z</span></li>
+              <li><label>Username:</label> <span class="wrap">OBwFz47AWIi4tqMyfNj3</span></li>
+              <li><label>Password:</label> <span class="wrap"></span></li>
+              <li><label>Status:</label> <span>FAIL</span></li>
+              <li><label>Details:</label> <span>Username or password not entered</span></li>
+              <li><label>Time Taken (s):</label> <span>0.67</span></li>
+              <li><label>Screenshot:</label> <a href="screenshots/testcase-15-fail.png" target="_blank"><img src="screenshots/testcase-15-fail.png" alt="screenshot" class="thumb"></a></li>
+            </ul>
+          </td>
+        </tr>
+        <tr class="fail">
+          <td>16</td>
+          <td>Failure</td>
+          <td>No Input</td>
+          <td><button class="expand-btn" onclick="toggleDetails(15)">&#x25BC;</button></td>
+        </tr>
+        <tr class="details-row" id="details-15">
+          <td colspan="4" class="details-cell">
+            <ul class="details-list">
+              <li><label>Timestamp:</label> <span>2026-02-02T08:18:28.862Z</span></li>
+              <li><label>Username:</label> <span class="wrap"></span></li>
+              <li><label>Password:</label> <span class="wrap">A5IG0sGZpkzoTKQ8bl4v</span></li>
+              <li><label>Status:</label> <span>FAIL</span></li>
+              <li><label>Details:</label> <span>Username or password not entered</span></li>
+              <li><label>Time Taken (s):</label> <span>0.66</span></li>
+              <li><label>Screenshot:</label> <a href="screenshots/testcase-16-fail.png" target="_blank"><img src="screenshots/testcase-16-fail.png" alt="screenshot" class="thumb"></a></li>
+            </ul>
+          </td>
+        </tr>
+        <tr class="pass">
+          <td>17</td>
+          <td>Failure</td>
+          <td>Failure</td>
+          <td><button class="expand-btn" onclick="toggleDetails(16)">&#x25BC;</button></td>
+        </tr>
+        <tr class="details-row" id="details-16">
+          <td colspan="4" class="details-cell">
+            <ul class="details-list">
+              <li><label>Timestamp:</label> <span>2026-02-02T08:18:29.623Z</span></li>
+              <li><label>Username:</label> <span class="wrap">xw1mhry7nKwW5O2IaOAWzw14WuDDVYUUCqoVJNt3TA6eX8QmF9</span></li>
+              <li><label>Password:</label> <span class="wrap">aHc8LgJGHnbK7VmYQ8ASYUBtKxliJYwFQJlLqlaDolCEJyXjQY</span></li>
+              <li><label>Status:</label> <span>PASS</span></li>
+              <li><label>Details:</label> <span>Login failed as expected</span></li>
+              <li><label>Time Taken (s):</label> <span>0.69</span></li>
+              <li><label>Screenshot:</label> <a href="screenshots/testcase-17-pass.png" target="_blank"><img src="screenshots/testcase-17-pass.png" alt="screenshot" class="thumb"></a></li>
+            </ul>
+          </td>
         </tr>
     </tbody>
   </table>
-  <div id="modal" class="modal" onclick="hideModal()">
-    <img id="modal-img" src="" alt="Full Screenshot">
-  </div>
   <script>
-    function showModal(src) {
-      document.getElementById('modal-img').src = src;
-      document.getElementById('modal').classList.add('active');
-    }
-    function hideModal() {
-      document.getElementById('modal').classList.remove('active');
-      document.getElementById('modal-img').src = '';
+    function toggleDetails(idx) {
+      var row = document.getElementById('details-' + idx);
+      if (row.style.display === 'table-row') {
+        row.style.display = 'none';
+      } else {
+        row.style.display = 'table-row';
+      }
     }
   </script>
 </body>
