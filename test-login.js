@@ -128,14 +128,15 @@ function writeHtmlReport() {
           <td>${r.status}</td>
           <td>${r.details}</td>
           <td>${r.timeTaken}</td>
-          <td><img src="${r.screenshot}" alt="screenshot" class="thumb" onclick="showModal('${r.screenshot}')"></td>
+          <td><a href="${r.screenshot}" target="_blank"><img src="${r.screenshot}" alt="screenshot" class="thumb"></a></td>
         </tr>`).join('')}
     </tbody>
   </table>
-  <div id="modal" class="modal" onclick="hideModal()">
+  <div id="modal" class="modal" onclick="hideModal()" style="display:none">
     <img id="modal-img" src="" alt="Full Screenshot">
   </div>
   <script>
+    // Modal code is now optional since we use _blank for new tab
     function showModal(src) {
       document.getElementById('modal-img').src = src;
       document.getElementById('modal').classList.add('active');
