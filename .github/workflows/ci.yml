@@ -33,12 +33,4 @@ jobs:
           sleep 5
 
       - name: Run Playwright automation tests
-        run: node test-login.js
-
-      - name: Upload test results and screenshots as zip
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-report-bundle
-          path: |
-            test-results.html
-            screenshots/
+        run: npx playwright test
