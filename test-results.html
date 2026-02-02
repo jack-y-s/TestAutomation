@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Automation Results</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f8f9fa; }
+    h1 { text-align: center; }
+    table { border-collapse: collapse; margin: 2rem auto; width: 90%; background: #fff; }
+    th, td { border: 1px solid #ccc; padding: 0.5rem 1rem; text-align: center; }
+    th { background: #007bff; color: #fff; }
+    tr.pass { background: #d4edda; }
+    tr.fail { background: #f8d7da; }
+    img.thumb { max-width: 120px; max-height: 80px; border: 1px solid #888; cursor: pointer; transition: box-shadow 0.2s; }
+    .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); align-items: center; justify-content: center; }
+    .modal img { max-width: 90vw; max-height: 90vh; border: 4px solid #fff; box-shadow: 0 0 20px #000; }
+    .modal.active { display: flex; }
+    .wrap { word-break: break-all; max-width: 180px; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>Test Automation Results</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Test Case</th>
+        <th>Timestamp</th>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Expected</th>
+        <th>Actual</th>
+        <th>Status</th>
+        <th>Details</th>
+        <th>Time Taken (s)</th>
+        <th>Screenshot</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        <tr class="pass">
+          <td>1</td>
+          <td>2026-02-02T06:50:20.875Z</td>
+          <td class="wrap">automation</td>
+          <td class="wrap">testautomation123</td>
+          <td>Success</td>
+          <td>Success</td>
+          <td>PASS</td>
+          <td>Login succeeded</td>
+          <td>0.70</td>
+          <td><img src="screenshots/testcase-1-pass.png" alt="screenshot" class="thumb" onclick="showModal('screenshots/testcase-1-pass.png')"></td>
+        </tr>
+        <tr class="pass">
+          <td>2</td>
+          <td>2026-02-02T06:50:21.601Z</td>
+          <td class="wrap">admin</td>
+          <td class="wrap">wrongpass</td>
+          <td>Failure</td>
+          <td>Failure</td>
+          <td>PASS</td>
+          <td>Login failed as expected</td>
+          <td>0.67</td>
+          <td><img src="screenshots/testcase-2-pass.png" alt="screenshot" class="thumb" onclick="showModal('screenshots/testcase-2-pass.png')"></td>
+        </tr>
+        <tr class="pass">
+          <td>3</td>
+          <td>2026-02-02T06:50:22.368Z</td>
+          <td class="wrap">user</td>
+          <td class="wrap">password123</td>
+          <td>Failure</td>
+          <td>Failure</td>
+          <td>PASS</td>
+          <td>Login failed as expected</td>
+          <td>0.70</td>
+          <td><img src="screenshots/testcase-3-pass.png" alt="screenshot" class="thumb" onclick="showModal('screenshots/testcase-3-pass.png')"></td>
+        </tr>
+        <tr class="fail">
+          <td>4</td>
+          <td>2026-02-02T06:50:23.102Z</td>
+          <td class="wrap"></td>
+          <td class="wrap"></td>
+          <td>Failure</td>
+          <td>No Input</td>
+          <td>FAIL</td>
+          <td>Username or password not entered</td>
+          <td>0.66</td>
+          <td><img src="screenshots/testcase-4-fail.png" alt="screenshot" class="thumb" onclick="showModal('screenshots/testcase-4-fail.png')"></td>
+        </tr>
+        <tr class="fail">
+          <td>5</td>
+          <td>2026-02-02T06:50:23.837Z</td>
+          <td class="wrap">automation</td>
+          <td class="wrap"></td>
+          <td>Failure</td>
+          <td>No Input</td>
+          <td>FAIL</td>
+          <td>Username or password not entered</td>
+          <td>0.66</td>
+          <td><img src="screenshots/testcase-5-fail.png" alt="screenshot" class="thumb" onclick="showModal('screenshots/testcase-5-fail.png')"></td>
+        </tr>
+        <tr class="fail">
+          <td>6</td>
+          <td>2026-02-02T06:50:24.554Z</td>
+          <td class="wrap"></td>
+          <td class="wrap">testautomation123</td>
+          <td>Failure</td>
+          <td>No Input</td>
+          <td>FAIL</td>
+          <td>Username or password not entered</td>
+          <td>0.65</td>
+          <td><img src="screenshots/testcase-6-fail.png" alt="screenshot" class="thumb" onclick="showModal('screenshots/testcase-6-fail.png')"></td>
+        </tr>
+        <tr class="pass">
+          <td>7</td>
+          <td>2026-02-02T06:50:25.301Z</td>
+          <td class="wrap">automation&#39; OR &#39;1&#39;=&#39;1</td>
+          <td class="wrap">testautomation123</td>
+          <td>Failure</td>
+          <td>Failure</td>
+          <td>PASS</td>
+          <td>Login failed as expected</td>
+          <td>0.69</td>
+          <td><img src="screenshots/testcase-7-pass.png" alt="screenshot" class="thumb" onclick="showModal('screenshots/testcase-7-pass.png')"></td>
+        </tr>
+        <tr class="pass">
+          <td>8</td>
+          <td>2026-02-02T06:50:26.055Z</td>
+          <td class="wrap">&lt;script&gt;alert(1)&lt;/script&gt;</td>
+          <td class="wrap">testautomation123</td>
+          <td>Failure</td>
+          <td>Failure</td>
+          <td>PASS</td>
+          <td>Login failed as expected</td>
+          <td>0.68</td>
+          <td><img src="screenshots/testcase-8-pass.png" alt="screenshot" class="thumb" onclick="showModal('screenshots/testcase-8-pass.png')"></td>
+        </tr>
+        <tr class="pass">
+          <td>9</td>
+          <td>2026-02-02T06:50:26.785Z</td>
+          <td class="wrap">automation</td>
+          <td class="wrap">&lt;script&gt;alert(1)&lt;/script&gt;</td>
+          <td>Failure</td>
+          <td>Failure</td>
+          <td>PASS</td>
+          <td>Login failed as expected</td>
+          <td>0.66</td>
+          <td><img src="screenshots/testcase-9-pass.png" alt="screenshot" class="thumb" onclick="showModal('screenshots/testcase-9-pass.png')"></td>
+        </tr>
+        <tr class="pass">
+          <td>10</td>
+          <td>2026-02-02T06:50:27.535Z</td>
+          <td class="wrap">automation</td>
+          <td class="wrap">testautomation123 </td>
+          <td>Failure</td>
+          <td>Failure</td>
+          <td>PASS</td>
+          <td>Login failed as expected</td>
+          <td>0.68</td>
+          <td><img src="screenshots/testcase-10-pass.png" alt="screenshot" class="thumb" onclick="showModal('screenshots/testcase-10-pass.png')"></td>
+        </tr>
+        <tr class="pass">
+          <td>11</td>
+          <td>2026-02-02T06:50:28.284Z</td>
+          <td class="wrap"> automation</td>
+          <td class="wrap">testautomation123</td>
+          <td>Failure</td>
+          <td>Failure</td>
+          <td>PASS</td>
+          <td>Login failed as expected</td>
+          <td>0.69</td>
+          <td><img src="screenshots/testcase-11-pass.png" alt="screenshot" class="thumb" onclick="showModal('screenshots/testcase-11-pass.png')"></td>
+        </tr>
+        <tr class="pass">
+          <td>12</td>
+          <td>2026-02-02T06:50:29.019Z</td>
+          <td class="wrap">automationautomationautomationautomationautomationautomationautomationautomationautomationautomation</td>
+          <td class="wrap">testautomation123</td>
+          <td>Failure</td>
+          <td>Failure</td>
+          <td>PASS</td>
+          <td>Login failed as expected</td>
+          <td>0.67</td>
+          <td><img src="screenshots/testcase-12-pass.png" alt="screenshot" class="thumb" onclick="showModal('screenshots/testcase-12-pass.png')"></td>
+        </tr>
+        <tr class="pass">
+          <td>13</td>
+          <td>2026-02-02T06:50:29.770Z</td>
+          <td class="wrap">automation</td>
+          <td class="wrap">testautomation123testautomation123testautomation123testautomation123testautomation123</td>
+          <td>Failure</td>
+          <td>Failure</td>
+          <td>PASS</td>
+          <td>Login failed as expected</td>
+          <td>0.68</td>
+          <td><img src="screenshots/testcase-13-pass.png" alt="screenshot" class="thumb" onclick="showModal('screenshots/testcase-13-pass.png')"></td>
+        </tr>
+    </tbody>
+  </table>
+  <div id="modal" class="modal" onclick="hideModal()">
+    <img id="modal-img" src="" alt="Full Screenshot">
+  </div>
+  <script>
+    function showModal(src) {
+      document.getElementById('modal-img').src = src;
+      document.getElementById('modal').classList.add('active');
+    }
+    function hideModal() {
+      document.getElementById('modal').classList.remove('active');
+      document.getElementById('modal-img').src = '';
+    }
+  </script>
+</body>
+</html>
