@@ -35,14 +35,10 @@ jobs:
       - name: Run Playwright automation tests
         run: node test-login.js
 
-      - name: Upload test results HTML
+      - name: Upload test results and screenshots as zip
         uses: actions/upload-artifact@v4
         with:
-          name: test-results-html
-          path: test-results.html
-
-      - name: Upload screenshots
-        uses: actions/upload-artifact@v4
-        with:
-          name: screenshots
-          path: screenshots/
+          name: test-report-bundle
+          path: |
+            test-results.html
+            screenshots/
