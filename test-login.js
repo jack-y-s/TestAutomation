@@ -194,7 +194,7 @@ function writeHtmlReport() {
     <tbody>
       ${results.map((r, i) => `
         <tr class="${r.status.toLowerCase()}">
-          <td>${r.testCase}</td>
+          <td>Test Case ${r.testCase}</td>
           <td>${r.expected}</td>
           <td>${r.actual}</td>
           <td><button class="expand-btn" onclick="toggleDetails(${i})">&#x25BC;</button></td>
