@@ -27,8 +27,8 @@ test.describe('Login Automation (Data-driven)', () => {
         // Should not navigate away from login page
         expect(page.url()).toMatch(/\/login|\/\s*$/);
         // Check that the empty input is invalid
-        const isUsernameValid = await page.$eval('input[name="username"]', el => (el /** @type {HTMLInputElement} */).checkValidity());
-        const isPasswordValid = await page.$eval('input[name="password"]', el => (el /** @type {HTMLInputElement} */).checkValidity());
+        const isUsernameValid = await page.$eval('input[name="username"]', el => /** @type {HTMLInputElement} */(el).checkValidity());
+        const isPasswordValid = await page.$eval('input[name="password"]', el => /** @type {HTMLInputElement} */(el).checkValidity());
         if (tc.username === '') expect(isUsernameValid).toBe(false);
         if (tc.password === '') expect(isPasswordValid).toBe(false);
         return;
