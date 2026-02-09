@@ -1,6 +1,6 @@
 # Login Automation Project
 
-This project is a simple Node.js + Express login web app with automated browser tests using Playwright Test.
+This project is a simple Node.js + Express login web app with automated browser tests using Playwright Test, written in TypeScript.
 
 ## Features
 - Hardcoded login logic with session management
@@ -21,7 +21,7 @@ This project is a simple Node.js + Express login web app with automated browser 
    ```
 
 ## Running the Application
-Start the server:
+Start the server (builds TypeScript first):
 ```
 npm start
 ```
@@ -40,12 +40,13 @@ npx playwright show-report
 ```
 
 ## Project Structure
-- `server.js` - Express server
+- `server.ts` - Express server (TypeScript source)
+- `dist/` - Compiled JavaScript output
 - `public/` - Static assets (CSS)
 - `views/` - HTML pages
-- `tests/login.spec.js` - Playwright Test suite
+- `tests/login.spec.ts` - Playwright Test suite (TypeScript)
 - `test-cases.json` - Test data
-- `playwright.config.js` - Playwright configuration
+- `playwright.config.ts` - Playwright configuration (TypeScript)
 - `.github/workflows/ci.yml` - CI/CD workflow
 
 ## Notes
