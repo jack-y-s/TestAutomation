@@ -143,8 +143,8 @@ test.describe('Feature 1: User Registration', () => {
     await page.goto(`${BASE_URL}/products`);
     await page.click('#login-button');
     await page.click('#show-register');
-    await page.fill('#modal-register-form input[name="username"]', 'admin');
-    await page.fill('#modal-register-form input[name="email"]', 'admin@test.com');
+    await page.fill('#modal-register-form input[name="username"]', 'automation');
+    await page.fill('#modal-register-form input[name="email"]', 'automation@test.com');
     await page.fill('#modal-register-form input[name="password"]', 'SecurePass123!');
     await page.fill('#modal-register-form input[name="confirm-password"]', 'SecurePass123!');
     await page.click('#modal-register-form button[type="submit"]');
