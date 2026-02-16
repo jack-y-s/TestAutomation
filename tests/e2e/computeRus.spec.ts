@@ -61,7 +61,13 @@ async function ensureLoggedIn(page: import('@playwright/test').Page, username = 
 
   if (await loginError.isVisible()) {
     await registerUserUI(page, { username, email: `${username}@example.com`, password });
-    await page.click('#login-button');
+    const registerModal = page.locator('#register-modal');
+    await expect(registerModal).toBeHidden({ timeout: 5000 });
+
+    const loginModal = page.locator('#login-modal');
+    if (!(await loginModal.isVisible())) {
+      await page.click('#login-button');
+    }
     await page.fill('#modal-login-form input[name="username"]', username);
     await page.fill('#modal-login-form input[name="password"]', password);
     await page.click('#modal-login-form button[type="submit"]');
