@@ -9,18 +9,21 @@
 <body>
   <div class="login-container">
     <h2>Login</h2>
-    <form method="POST" action="/login">
+    <div id="checkout-message" style="display: none; padding: 10px; background-color: #e3f2fd; border-radius: 5px; margin-bottom: 15px; color: #1976d2;">
+      Please login to continue with checkout.
+    </div>
+    <form method="POST" action="/login" id="login-form">
       <input type="text" name="username" placeholder="Username" required><br>
       <input type="password" name="password" placeholder="Password" required><br>
+      <input type="hidden" name="redirect" id="redirect-input">
       <button type="submit">Login</button>
     </form>
     <div class="error" id="error-message"></div>
+    <div style="margin-top: 20px; text-align: center;">
+      <a href="/register" style="color: #4CAF50; text-decoration: none; margin-right: 15px;">Create Account</a>
+      <a href="/reset-password" style="color: #2196F3; text-decoration: none;">Forgot Password?</a>
+    </div>
   </div>
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('error')) {
-      document.getElementById('error-message').textContent = 'Invalid username or password.';
-    }
-  </script>
+  <script src="/js/login.js"></script>
 </body>
 </html>

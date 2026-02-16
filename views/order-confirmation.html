@@ -1,0 +1,447 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmation</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .nav-bar {
+      background-color: #333;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .nav-separator {
+      width: 1px;
+      height: 30px;
+      background-color: #666;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+      white-space: nowrap;
+    }
+    .nav-links a:visited {
+      color: white;
+    }
+    .nav-links a:hover {
+      background-color: #555;
+    }
+    .nav-links button {
+      color: white;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .nav-links button:hover {
+      background-color: #555;
+    }
+    .nav-links form {
+      margin: 0;
+      display: inline-block;
+    }
+    .nav-links form button {
+      color: white;
+      background: none;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+    .nav-links form button:hover {
+      background-color: #555;
+    }
+    /* User Menu & Dropdown */
+    .user-menu {
+      position: relative;
+    }
+    .nav-links .username-btn {
+      color: #ff9800 !important;
+      background: none;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+      white-space: nowrap;
+    }
+    .username-btn:hover {
+      background-color: #555;
+    }
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      margin-top: 5px;
+      width: fit-content;
+      z-index: 1000;
+    }
+    .dropdown-menu.show {
+      display: block;
+    }
+    .dropdown-menu form {
+      margin: 0;
+    }
+    .dropdown-menu .dropdown-item {
+      width: 100%;
+      padding: 12px 16px;
+      background: none;
+      border: none;
+      text-align: center;
+      cursor: pointer;
+      font-size: 16px;
+      color: #333;
+      border-radius: 5px;
+      white-space: nowrap;
+      min-width: 150px;
+    }
+    .dropdown-menu .dropdown-item:hover {
+      background-color: #f0f0f0;
+    }
+    .nav-left a {
+      color: white;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .nav-left a:visited {
+      color: white;
+    }
+    .nav-left a:hover {
+      background-color: #555;
+    }
+    .confirmation-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+    .confirmation-container h1 {
+      color: #28a745;
+    }
+    .success-icon {
+      font-size: 80px;
+      color: #28a745;
+      margin: 30px 0;
+    }
+    .order-details {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      text-align: left;
+      margin: 30px 0;
+    }
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .detail-label {
+      font-weight: bold;
+    }
+    .order-items {
+      margin: 20px 0;
+    }
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px;
+      border: 1px solid #eee;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+    .total-amount {
+      font-size: 24px;
+      font-weight: bold;
+      color: #28a745;
+      margin: 20px 0;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+    .action-buttons {
+      margin: 30px 0;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      margin: 0 10px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 16px;
+    }
+    .btn-primary {
+      background-color: #007bff;
+      color: white;
+    }
+    .btn-secondary {
+      background-color: #6c757d;
+      color: white;
+    }
+    /* Login Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background-color: white;
+      padding: 40px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+    .modal-content h2 {
+      margin-top: 0;
+      margin-bottom: 25px;
+      text-align: center;
+      color: #333;
+    }
+    .modal-form input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    .modal-form button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      background-color: #667eea;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .modal-form button:hover {
+      background-color: #5568d3;
+    }
+    .login-error {
+      display: none;
+      color: #dc3545;
+      background-color: #f8d7da;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    .modal-footer {
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px solid #eee;
+      display: flex;
+      justify-content: space-around;
+      gap: 15px;
+    }
+    .modal-footer a {
+      color: #667eea;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+    .modal-footer a:hover {
+      color: #5568d3;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav-bar">
+    <div class="nav-left">
+      <h2 style="margin: 0;">ComputeRus</h2>
+      <div class="nav-separator"></div>
+      <a href="/">Home</a>
+      <a href="/products">Products</a>
+    </div>
+    <div class="nav-links">
+      <a href="/cart">Cart (<span id="cart-count">0</span>)</a>
+      <button id="login-button">Login</button>
+      <div class="user-menu" id="user-menu" style="display: none;">
+        <button class="username-btn" id="username-btn">Username</button>
+        <div class="dropdown-menu" id="dropdown-menu">
+          <button type="button" class="dropdown-item" id="feedback-btn">Give Feedback</button>
+          <form method="POST" action="/logout">
+            <button type="submit" class="dropdown-item">Logout</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="confirmation-container">
+
+    <h1>Order Confirmed!</h1>
+    <p>Thank you for your purchase. Your order has been successfully placed.</p>
+
+    <div class="order-details" id="order-details">
+      <h3>Order Details</h3>
+      <div class="detail-row">
+        <span class="detail-label">Order Number:</span>
+        <span id="order-number">-</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Customer Name:</span>
+        <span id="customer-name">-</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Email:</span>
+        <span id="customer-email">-</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Shipping Address:</span>
+        <span id="shipping-address">-</span>
+      </div>
+
+      <h3 style="margin-top: 30px;">Items Ordered</h3>
+      <div class="order-items" id="order-items">
+        <!-- Order items will be loaded here -->
+      </div>
+
+      <div class="total-amount">
+        <div style="margin-bottom: 15px;">
+          <div style="display: flex; justify-content: space-between; margin: 10px 0; font-size: 18px;">
+            <span>Subtotal:</span>
+            <span id="order-subtotal">RM0.00</span>
+          </div>
+          <div id="discount-row" style="display: none; color: #28a745; justify-content: space-between; margin: 10px 0; font-size: 18px;">
+            <span>New User Discount (10%):</span>
+            <span id="order-discount">-RM0.00</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin: 10px 0; font-size: 18px;">
+            <span>Shipping:</span>
+            <span id="order-shipping">RM10.00</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin: 10px 0; font-size: 18px;">
+            <span>Taxes (6%):</span>
+            <span id="order-taxes">RM0.00</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin: 10px 0; font-size: 24px; font-weight: bold; border-top: 2px solid #ddd; padding-top: 10px;">
+            <span>Total:</span>
+            <span id="total-amount">RM0.00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <a href="/products" class="btn btn-primary">Continue Shopping</a>
+      <a href="/" class="btn btn-secondary">Go to Home</a>
+    </div>
+  </div>
+
+  <!-- Login Modal -->
+  <div id="login-modal" class="modal">
+    <div class="modal-content">
+      <h2>Login to ComputeRus</h2>
+      <div id="login-error" class="login-error"></div>
+      <form id="modal-login-form" class="modal-form">
+        <input type="text" name="username" placeholder="Username" required autocomplete="username">
+        <input type="password" name="password" placeholder="Password" required autocomplete="current-password">
+        <button type="submit">Login</button>
+      </form>
+      <div class="modal-footer">
+        <a href="#" id="show-register">Create Account</a>
+        <a href="#" id="show-reset">Forgot Password?</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Register Modal -->
+  <div id="register-modal" class="modal">
+    <div class="modal-content">
+      <h2>Create Account</h2>
+      <div id="register-error" class="login-error"></div>
+      <form id="modal-register-form" class="modal-form">
+        <input type="text" name="username" placeholder="Username" required autocomplete="username">
+        <input type="email" name="email" placeholder="Email" required autocomplete="email">
+        <input type="password" name="password" placeholder="Password" required autocomplete="new-password">
+        <input type="password" name="confirm-password" placeholder="Confirm Password" required autocomplete="new-password">
+        <button type="submit">Register</button>
+      </form>
+      <div class="modal-footer">
+        <a href="#" class="back-to-login">Back to Login</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reset Password Modal -->
+  <div id="reset-modal" class="modal">
+    <div class="modal-content">
+      <h2>Reset Password</h2>
+      <div id="reset-error" class="login-error"></div>
+      <form id="modal-reset-form" class="modal-form">
+        <input type="text" name="username" placeholder="Username" required autocomplete="username">
+        <input type="password" name="new-password" placeholder="New Password" required autocomplete="new-password">
+        <input type="password" name="confirm-password" placeholder="Confirm Password" required autocomplete="new-password">
+        <button type="submit">Reset Password</button>
+      </form>
+      <div class="modal-footer">
+        <a href="#" class="back-to-login">Back to Login</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feedback Modal -->
+  <div id="feedback-modal" class="modal">
+    <div class="modal-content">
+      <h2>Give Us Your Feedback</h2>
+      <form id="modal-feedback-form" class="modal-form">
+        <textarea id="feedback-text" name="feedback" placeholder="Tell us what you think..." required style="width: 100%; height: 120px; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px; font-family: Arial, sans-serif; box-sizing: border-box; resize: vertical;"></textarea>
+        <button type="submit">Submit Feedback</button>
+      </form>
+      <div class="modal-footer">
+        <a href="#" class="close-feedback">Close</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/order-confirmation.js"></script>
+</body>
+</html>

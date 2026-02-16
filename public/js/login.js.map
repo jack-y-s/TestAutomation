@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/client/login.ts"],
+  "sourcesContent": ["import type { AuthStatus } from '../shared/types';\r\n\r\nconst params = new URLSearchParams(window.location.search);\r\n\r\nif (params.get('error')) {\r\n  const errorMessage = document.getElementById('error-message');\r\n  if (errorMessage) {\r\n    errorMessage.textContent = 'Invalid username or password.';\r\n  }\r\n}\r\n\r\nif (params.get('redirect')) {\r\n  const redirectInput = document.getElementById('redirect-input') as HTMLInputElement;\r\n  if (redirectInput) {\r\n    redirectInput.value = params.get('redirect') || '';\r\n  }\r\n  \r\n  if (params.get('redirect') === 'checkout') {\r\n    const checkoutMessage = document.getElementById('checkout-message');\r\n    if (checkoutMessage) {\r\n      checkoutMessage.style.display = 'block';\r\n    }\r\n  }\r\n}\r\n"],
+  "mappings": ";;;AAEA,MAAM,SAAS,IAAI,gBAAgB,OAAO,SAAS,MAAM;AAEzD,MAAI,OAAO,IAAI,OAAO,GAAG;AACvB,UAAM,eAAe,SAAS,eAAe,eAAe;AAC5D,QAAI,cAAc;AAChB,mBAAa,cAAc;AAAA,IAC7B;AAAA,EACF;AAEA,MAAI,OAAO,IAAI,UAAU,GAAG;AAC1B,UAAM,gBAAgB,SAAS,eAAe,gBAAgB;AAC9D,QAAI,eAAe;AACjB,oBAAc,QAAQ,OAAO,IAAI,UAAU,KAAK;AAAA,IAClD;AAEA,QAAI,OAAO,IAAI,UAAU,MAAM,YAAY;AACzC,YAAM,kBAAkB,SAAS,eAAe,kBAAkB;AAClE,UAAI,iBAAiB;AACnB,wBAAgB,MAAM,UAAU;AAAA,MAClC;AAAA,IACF;AAAA,EACF;",
+  "names": []
+}
