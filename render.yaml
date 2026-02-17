@@ -3,8 +3,8 @@ services:
     name: compute-rus
     env: node
     plan: free
-    buildCommand: npm run build
-    startCommand: npm start
+    buildCommand: npm ci --include=dev
+    startCommand: node dist/server.js
     autoDeploy: true
     envVars:
       - key: NPM_CONFIG_PRODUCTION
