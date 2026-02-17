@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: compute-rus
+    env: node
+    plan: free
+    buildCommand: npm run build
+    startCommand: npm start
+    autoDeploy: true
+    envVars:
+      - key: NPM_CONFIG_PRODUCTION
+        value: "false"
