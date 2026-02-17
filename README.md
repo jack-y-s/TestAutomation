@@ -41,6 +41,16 @@ A full-featured e-commerce web application built with Node.js + Express, fully w
 
 The app will be available at http://localhost:3000
 
+## Render Deployment
+
+Use the included render.yaml to create a Render Web Service.
+
+1. Create a new Web Service and connect this repository.
+2. Use these settings:
+   - Build command: `npm run build`
+   - Start command: `npm start`
+3. Deploy. Render will supply the `PORT` environment variable automatically.
+
 ### Default Credentials
 - Username: `automation`
 - Password: `testautomation123`

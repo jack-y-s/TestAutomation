@@ -6,7 +6,7 @@ import type { Product, CartItem, CustomerInfo, Order } from './src/shared/types'
 import { findUserByUsername, createUser, validatePassword, resetPassword, isNewUser } from './src/server/userStore';
 
 const app = express();
-const PORT = 3000;
+const PORT = Number(process.env.PORT) || 3000;
 
 const ROOT_DIR = process.cwd();
 
@@ -334,6 +334,6 @@ app.post('/api/feedback', (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`);
 });
